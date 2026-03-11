@@ -1,0 +1,375 @@
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&family=Geist:wght@100..900&family=Caveat:wght@400..700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 
+     * NEUBRUTALIST PALETTE - NAJMUS SAQUIB
+     * Background: Pure White (FFFFFF)
+     * Foreground: Black (000000)
+     * Accent: Blue (3B82F6)
+     */
+    
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 0 0% 0%; /* #000000 */
+    
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    
+    --primary: 0 0% 0%; /* Black borders/text */
+    --primary-foreground: 0 0% 100%; /* White text on black */
+    
+    --secondary: 0 0% 96.1%; /* Gray 100 */
+    --secondary-foreground: 0 0% 0%;
+    
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    
+    --accent: 221 83% 53%; /* Blue */
+    --accent-foreground: 0 0% 100%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 0%; /* Black borders */
+    --input: 0 0% 0%;
+    --ring: 0 0% 0%;
+    
+    --radius: 0rem; /* Sharp edges for Brutalism */
+    
+    --font-sans: 'Geist', sans-serif;
+    --font-mono: 'Geist Mono', monospace;
+
+    /* Shadow Logic */
+    --shadow-hard: 4px 4px 0px 0px rgba(0,0,0,1);
+    --shadow-hard-lg: 8px 8px 0px 0px rgba(0,0,0,1);
+  }
+
+  .dark {
+    --background: 0 0% 4%; /* Near black */
+    --foreground: 0 0% 98%;
+    
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 98%;
+    
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 4%;
+    
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 0 0% 98%;
+    --input: 0 0% 98%;
+    --ring: 0 0% 98%;
+
+    --shadow-hard: 4px 4px 0px 0px #FFFFFF;
+    --shadow-hard-lg: 8px 8px 0px 0px #FFFFFF;
+  }
+
+  .dark body {
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(255, 255, 255, 0.02) 2px,
+        rgba(255, 255, 255, 0.02) 4px
+      );
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-color: hsl(var(--background)); /* For smooth transitions */
+    background-image: 
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      );
+    position: relative;
+    transition: background-color 0.5s ease;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' seed='1' /%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23ffffff' filter='url(%23noise)' opacity='0.03' /%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: overlay;
+  }
+
+  * {
+    position: relative;
+    z-index: 2;
+  }
+
+  body > * {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+/* Custom utilities */
+.text-stroke-1 {
+  -webkit-text-stroke: 1px currentColor;
+}
+.text-stroke-2 {
+  -webkit-text-stroke: 2px currentColor;
+}
+
+/* Hide scrollbar but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth transitions */
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+button, a {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Smooth page entrance animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth section reveal on scroll */
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth hover lift effect */
+@keyframes hoverLift {
+  to {
+    transform: translateY(-4px);
+  }
+}
+
+section {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Smooth text selection */
+::selection {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: inherit;
+}
+
+.dark ::selection {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Smooth scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--foreground));
+  border-radius: 1px;
+  transition: background 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--foreground) / 0.7);
+}
+
+/* Pen & Paper Feel */
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+}
+
+/* Sketchy border effect */
+@keyframes sketchyDraw {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Paper line texture */
+.paper-lines {
+  background-image: 
+    linear-gradient(
+      0deg,
+      transparent 24%,
+      rgba(0, 0, 0, 0.03) 25%,
+      rgba(0, 0, 0, 0.03) 26%,
+      transparent 27%,
+      transparent 74%,
+      rgba(0, 0, 0, 0.03) 75%,
+      rgba(0, 0, 0, 0.03) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 100% 40px;
+}
+
+/* Pencil sketch effect */
+.sketch-effect {
+  filter: url(#sketch);
+  position: relative;
+}
+
+.sketch-effect::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='roughen'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='3' result='noise'/%3E%3CfeDisplacementMap in='SourceGraphic' in2='noise' scale='1' xChannelSelector='R' yChannelSelector='G' /%3E%3C/filter%3E%3Crect width='200' height='200' fill='%23000' filter='url(%23roughen)' opacity='0.01' /%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Ink bleed effect for buttons */
+.ink-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.ink-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at center, rgba(0,0,0,0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Rough edges */
+.rough-edge {
+  filter: url(#roughen);
+}
+
+/* Hand-drawn-like shadow */
+.hand-drawn-shadow {
+  filter: drop-shadow(1px 1px 0 rgba(0,0,0,0.15)) 
+          drop-shadow(2px 2px 0 rgba(0,0,0,0.1))
+          drop-shadow(3px 3px 0 rgba(0,0,0,0.05));
+}
+
+/* Ink on paper effect for signatures */
+.ink-signature {
+  font-family: 'Caveat', cursive;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-shadow: 
+    1px 1px 0 rgba(0, 0, 0, 0.1),
+    2px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Page curl corner effect */
+.page-curl {
+  position: relative;
+}
+
+.page-curl::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: radial-gradient(circle at top-left, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+  border-radius: 100% 0 0 0;
+  pointer-events: none;
+}
+
+/* Pencil stroke blur */
+.pencil-stroke {
+  filter: url(#roughen);
+  opacity: 0.95;
+}
+
+/* Water color bleed effect */
+.watercolor-bleed {
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.1));
+  position: relative;
+}
+
+.watercolor-bleed::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(ellipse at center, transparent 0%, rgba(0, 0, 0, 0.02) 100%);
+  pointer-events: none;
+  border-radius: inherit;
+}
